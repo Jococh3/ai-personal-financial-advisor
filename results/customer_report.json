@@ -1,0 +1,56 @@
+{
+    "customer_id": "'C1000148617'",
+    "total_spending": 4597.04,
+    "categories": {
+        "'es_food'": {
+            "transactions": 5,
+            "total_spending": 129.71,
+            "average_transaction": 25.94
+        },
+        "'es_health'": {
+            "transactions": 2,
+            "total_spending": 488.87,
+            "average_transaction": 244.44
+        },
+        "'es_home'": {
+            "transactions": 1,
+            "total_spending": 134.16,
+            "average_transaction": 134.16
+        },
+        "'es_hotelservices'": {
+            "transactions": 1,
+            "total_spending": 122.75,
+            "average_transaction": 122.75
+        },
+        "'es_hyper'": {
+            "transactions": 1,
+            "total_spending": 8.88,
+            "average_transaction": 8.88
+        },
+        "'es_otherservices'": {
+            "transactions": 2,
+            "total_spending": 200.05,
+            "average_transaction": 100.02
+        },
+        "'es_sportsandtoys'": {
+            "transactions": 1,
+            "total_spending": 16.69,
+            "average_transaction": 16.69
+        },
+        "'es_tech'": {
+            "transactions": 2,
+            "total_spending": 111.32,
+            "average_transaction": 55.66
+        },
+        "'es_transportation'": {
+            "transactions": 114,
+            "total_spending": 3317.61,
+            "average_transaction": 29.1
+        },
+        "'es_wellnessandbeauty'": {
+            "transactions": 2,
+            "total_spending": 67.0,
+            "average_transaction": 33.5
+        }
+    }
+}

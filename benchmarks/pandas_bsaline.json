@@ -1,0 +1,15 @@
+{
+    "engine": "pandas",
+    "operation": "customer_category_aggregation",
+    "transaction_count": 594643,
+    "runs_seconds": [
+        0.09375769999678596,
+        0.08813580000060028,
+        0.08801510000193957,
+        0.08815509999840287,
+        0.09141350000209059
+    ],
+    "average_seconds": 0.08989543999996386,
+    "fastest_seconds": 0.08801510000193957,
+    "slowest_seconds": 0.09375769999678596
+}
