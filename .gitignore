@@ -22,3 +22,17 @@ credentials/
 *.pfx
 id_rsa*
 id_ed25519*
+
+# Local development
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+spark-warehouse/
+
+# Generated runtime logs
+*.log
+
+# Local datasets
+data/

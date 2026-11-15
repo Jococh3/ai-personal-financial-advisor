@@ -1,65 +1,83 @@
-# AI Personal Financial Advisor
+# AI Personal Financial Advisor — Financial Processing and Cloud Benchmarks
 
-An ENGR-E516 Engineering Cloud Computing project at Indiana University exploring how transaction aggregation can support personal financial insights. The current implementation provides a local Pandas pipeline; distributed processing and AI advice are planned.
+## Overview
 
-## Completed: Pandas pipeline
+I developed the financial processing, distributed data aggregation, and MCP financial tool components for my ENGR-E516 Cloud Computing team project.
 
-- Load the BankSim CSV and inspect its schema, missing values, duplicate rows, negative amounts, categories, and transaction statistics.
-- Aggregate transaction count, total spending, and average transaction amount by customer and category.
-- Generate a structured spending report for a selected synthetic customer, save it as JSON, and verify the saved report matches the generated report.
-- Measure customer/category aggregation over five runs and save the timing results.
+My implementation processes synthetic BankSim transaction data using Pandas and Apache Spark, validates aggregation correctness, and exposes financial reporting functions through the Model Context Protocol (MCP).
 
-### Project files
+I deployed and benchmarked the processing pipeline on Indiana University's Jetstream2 cloud infrastructure.
 
-| Path | Purpose |
-| --- | --- |
-| `src/explore_data.py` | Runs exploration, aggregation benchmarks, and report generation |
-| `src/process_transactions.py` | Loads transactions and aggregates spending |
-| `src/generate_report.py` | Builds a customer spending report |
-| `benchmarks/pandas_bsaline.json` | Existing Pandas benchmark results (filename preserved) |
-| `results/customer_report.json` | Example report using synthetic BankSim customer data |
-| `requirements.txt` | Python dependencies |
+## Technologies
 
-## Setup and usage
+- Python 3.10
+- Pandas 2.3.3
+- Apache Spark / PySpark 3.5.6
+- Hadoop HDFS
+- Model Context Protocol (MCP)
+- Streamable HTTP and stdio transports
+- Jetstream2 cloud virtual machines
 
-Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).
+## Financial Processing
 
-```powershell
-uv venv --python 3.12 .venv
-uv pip install --python .venv\Scripts\python.exe -r requirements.txt
-```
+I implemented customer-level and category-level transaction aggregation, including transaction counts, total spending, and average transaction amounts.
 
-Download the [BankSim synthetic financial payment dataset from Kaggle](https://www.kaggle.com/datasets/ealaxi/banksim1) and place `bs140513_032310.csv` in the project's `data/` directory. The CSV is excluded from Git; follow the dataset provider's license and terms.
+I created equivalent Pandas and PySpark processing implementations and validated their consistency through automated tests.
 
-Run from the project root:
+## Distributed Cloud Infrastructure
 
-```powershell
-.\.venv\Scripts\python.exe src\explore_data.py
-```
+I used three Jetstream2 virtual machines consisting of one Spark master and two Spark workers.
 
-This command prints exploration results and regenerates `benchmarks/pandas_bsaline.json` and `results/customer_report.json`.
+I configured Hadoop HDFS for distributed dataset storage and verified that both Spark workers executed financial processing tasks.
 
-## Recorded Pandas benchmark
+## Performance Evaluation
 
-Source: `benchmarks/pandas_bsaline.json`, using 594,643 transactions and five aggregation runs.
+I benchmarked financial aggregation using datasets containing 10,000, 100,000, and 1,000,000 transactions.
 
-| Metric | Seconds |
-| --- | ---: |
-| Average | 0.089895 |
-| Fastest | 0.088015 |
-| Slowest | 0.093758 |
+### Pandas and Spark Results
 
-The timer covers customer/category aggregation on an already loaded DataFrame, including rounding. CSV loading, exploration, and report serialization are outside the timed operation. These results are a local baseline; hardware and runtime metadata were not recorded, so they do not establish distributed performance or speedup.
+| Transactions | Pandas Mean | Spark 1 Core | Spark 2 Cores |
+|---|---:|---:|---:|
+| 10,000 | 0.015 s | 1.378 s | 1.334 s |
+| 100,000 | 0.042 s | 1.634 s | 1.547 s |
+| 1,000,000 | 0.234 s | 2.561 s | 2.254 s |
 
-## Planned: PySpark and Jetstream2
+Each configuration was measured across five executions.
 
-- Implement equivalent customer/category aggregation with PySpark and validate results against Pandas.
-- Deploy the distributed workflow on Jetstream2.
-- Compare runtime and scaling across dataset sizes and compute configurations, recording reproducible environment details.
-- Add an AI advice layer based on structured spending summaries.
+At one million transactions, the two-core Spark configuration achieved approximately 1.14x speedup over the one-core configuration.
 
-These features are not implemented in the current repository.
+I observed that Pandas was substantially faster for these relatively small, in-memory workloads. Spark provided distributed execution and increasing benefits from additional compute resources as the workload grew.
 
-## Data handling
+These measurements exclude initial dataset loading. The Pandas and Spark timing boundaries are similar but not identical, so I treat the comparison as observed application performance rather than an isolated framework benchmark.
 
-Use synthetic BankSim data for development. Do not commit personal financial records, raw dataset CSVs, environment files, or credentials. `.gitignore` excludes the virtual environment, Python caches, local dataset CSVs, and common credential file patterns.
+## MCP Financial Tools
+
+I implemented two MCP tools:
+
+- `get_customer_spending(customer_id)` — Returns spending totals and category breakdowns for a customer.
+- `summarize_category(category)` — Returns transaction counts, total spending, and customer counts.
+
+I validated both tools through an MCP stdio client and an HTTP MCP client.
+
+The HTTP implementation uses Streamable HTTP and supports configurable network binding through `E516_MCP_HOST` and `E516_MCP_PORT`.
+
+The server uses synthetic financial data. Network access controls and authentication must be addressed before deployment with sensitive financial information.
+
+## Validation
+
+I ran six automated correctness tests, all of which passed on Jetstream2.
+
+I also verified distributed Spark task execution across both worker VMs and successful financial tool invocation through MCP.
+
+## Repository Structure
+
+- `src/` — Financial processing, reporting, PySpark, and MCP implementations
+- `scripts/` — Dataset preparation and benchmarking
+- `tests/` — Automated correctness and Spark runtime tests
+- `benchmarks/` — Recorded benchmark measurements and analysis
+- `results/` — Example financial reporting output
+- `requirements*.txt` — Python dependencies
+
+## Project Scope
+
+This repository documents my contribution to the larger AI Personal Financial Advisor team project. Integration with the LangGraph agent, orchestration services, frontend, and model inference components is coordinated with the other team members.

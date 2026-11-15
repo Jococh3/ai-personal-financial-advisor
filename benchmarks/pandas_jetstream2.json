@@ -1,0 +1,57 @@
+{
+  "engine": "pandas",
+  "timing_boundary": "in-memory input; aggregate and materialize all grouped result records",
+  "source": "local_execution",
+  "runs": 5,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pandas": "2.3.3",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "processor": "x86_64",
+  "results": [
+    {
+      "dataset": "banksim_10000.csv",
+      "rows": 10000,
+      "groups": 4835,
+      "runs_seconds": [
+        0.017137905000026876,
+        0.01564319599992814,
+        0.01475237699992249,
+        0.014240840999946158,
+        0.0142070069998681
+      ],
+      "mean_seconds": 0.015196265199938353,
+      "min_seconds": 0.0142070069998681,
+      "max_seconds": 0.017137905000026876
+    },
+    {
+      "dataset": "banksim_100000.csv",
+      "rows": 100000,
+      "groups": 14488,
+      "runs_seconds": [
+        0.042187776999981,
+        0.04466044100013278,
+        0.04070263399989926,
+        0.040477806999888344,
+        0.03999052600011055
+      ],
+      "mean_seconds": 0.041603837000002385,
+      "min_seconds": 0.03999052600011055,
+      "max_seconds": 0.04466044100013278
+    },
+    {
+      "dataset": "banksim_1000000.csv",
+      "rows": 1000000,
+      "groups": 29578,
+      "runs_seconds": [
+        0.23315129900015563,
+        0.30556798299994625,
+        0.21309708300009333,
+        0.21289058100001057,
+        0.20774676599990016
+      ],
+      "mean_seconds": 0.23449074240002118,
+      "min_seconds": 0.20774676599990016,
+      "max_seconds": 0.30556798299994625
+    }
+  ]
+}

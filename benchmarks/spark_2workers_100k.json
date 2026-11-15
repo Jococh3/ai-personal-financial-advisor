@@ -1,0 +1,30 @@
+{
+  "engine": "pyspark",
+  "label": "2-workers-100k",
+  "timing_boundary": "cached input materialized before timer; aggregate and collect all grouped records",
+  "note": "Spark task scheduling and collect overhead included; not perfectly identical to Pandas in-process materialization.",
+  "spark_version": "3.5.6",
+  "spark_master": "spark://10.4.36.195:7077",
+  "default_parallelism": 2,
+  "configured_partitions": 2,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "runs": 5,
+  "results": [
+    {
+      "dataset": "banksim_100000.csv",
+      "rows": 100000,
+      "groups": 14488,
+      "runs_seconds": [
+        3.6838825449999604,
+        1.114379912000004,
+        1.0545578159999422,
+        1.0132237850000365,
+        0.8680150370000774
+      ],
+      "mean_seconds": 1.5468118190000042,
+      "min_seconds": 0.8680150370000774,
+      "max_seconds": 3.6838825449999604
+    }
+  ]
+}
